@@ -1,0 +1,19 @@
+.login{
+    width : 800px;
+
+    .login-box-body{
+        border-top :2px dotted #000;
+    }
+    div.login-logo {
+        font-family: 'Pathway Gothic One', sans-serif;
+        strong{
+            color : #EF0D33;
+        }
+        font-size: 5em;
+    }
+    div.error-label{
+        text-align: right;
+        color: #FF0000;
+        margin-bottom: 2px;
+    }
+}
