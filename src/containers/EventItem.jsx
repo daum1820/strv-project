@@ -8,12 +8,13 @@ class EventItem extends Component {
         const { id, title, description, startsAt, owner, attendees, capacity, userId } = this.props;
         const numberOfAttendees = attendees.length;
         const isAttendeeToMe = attendees.some(attendee => attendee.id === userId);
-        console.log(attendees);
-        const boxFooterToolbar = isAttendeeToMe ? 
-            (<button className="btn btn-sm btn-danger">
+        
+        const boxFooterToolbar = isAttendeeToMe ? (numberOfAttendees < capacity ?         
+            (<button className="btn btn-sm bg-black">
                 <i className="fa fa-plus-circle"></i> Attend
             </button>) : 
-            (<button className="btn btn-sm bg-black">
+            (<label className="danger-label"><i className="fa fa-info-circle"></i> Sorry, the maximum number of attendees has been reached</label>) ) : 
+            (<button className="btn btn-sm btn-danger">
                 <i className="fa fa-minus-circle"></i> Unttend
             </button>);
         return (
