@@ -2,7 +2,15 @@
     width : 800px;
 
     .login-box-body{
-        border-top :2px dotted #000;
+        border-top : 2px dotted #000;
+        .overlay{
+            text-align: center;
+            margin-bottom: 9px;
+        }
+    }
+    .login-box-msg.has-error{
+        color : #EF0D33;
+        font-weight: bold;
     }
     div.login-logo {
         font-family: 'Pathway Gothic One', sans-serif;
@@ -15,5 +23,10 @@
         text-align: right;
         color: #FF0000;
         margin-bottom: 2px;
+    }
+    .btn{
+        i.glyphicon {
+            margin-right: 5px;
+        }
     }
 }

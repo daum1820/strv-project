@@ -1,0 +1,60 @@
+header.home-header{
+    
+    border-bottom : 2px dotted #000;
+    width: 90%;
+    left: 5%;
+    -webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+
+    a.logo{
+        border:  0px !important;
+        .logo-lg{
+            font-family: 'Pathway Gothic One', sans-serif;
+            strong{
+                color : #EF0D33;
+            }
+            font-size: 1.5em;
+        }
+    }
+    
+    .navbar{
+        .navbar-custom-menu{
+            .navbar-nav {
+                li {
+                    a{
+                        border: 0px !important;
+                        cursor: pointer;
+                    }
+                }
+            } 
+        }
+    }
+}
+
+.search-bar{
+    margin-top: 20px;
+    text-align: center;
+    .input-group{
+        width: 60%;
+        margin : auto;
+        span.input-group-btn{
+            .btn{
+                background-color : #EF0D33;
+                color: #FFF;
+            }
+        }
+    }
+}
+
+.event-list{
+    .box-body, .box-header{
+        span.time{
+            float: right;
+            font-size: 85%;
+            i.fa{
+                margin-right: 5px;
+            }
+        }
+    }
+}
