@@ -9,8 +9,6 @@ class EventItem extends Component {
 
     constructor(props){
         super(props);
-        this.renderList.bind(this);
-        this.renderWidget.bind(this);
         this.renderToolbar.bind(this);
         this.state = {
             loading : false
@@ -63,24 +61,11 @@ class EventItem extends Component {
                     attendButton : capacityMessage)) :  
             startsAtMessage;
     }
-    renderList(){
-        const { id, title, description, startsAt, owner, attendees, capacity, userId } = this.props;
-        return (
-            <div className="box box-danger">
-                <div className="box-header with-border">
-                    <span className="pull-right">
-                        {this.renderToolbar()}
-                    </span>
-                    <h4>{title} <small>({description})</small></h4>
-                </div>
-            </div>
-        );
-    }
-    renderWidget(){
+
+    render(){
         const numberOfAttendees = this.props.attendees.length;
         const { id, title, description, startsAt, owner, attendees, capacity, userId } = this.props;
         return (
-            <div className="col-md-4 col-sm-6 col-xs-12">
                 <div className="box box-danger">
                     <div className="box-header with-border">
                         <h3 className="box-title">{title}</h3>
@@ -112,11 +97,7 @@ class EventItem extends Component {
                         {this.renderToolbar()}
                     </div>
                 </div>
-            </div>
         )
-    }
-    render() {
-        return this.props.renderOptions === 'list' ? this.renderList() : this.renderWidget();
     }
 }
 

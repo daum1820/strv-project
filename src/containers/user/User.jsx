@@ -23,7 +23,7 @@ class EventList extends Component {
             <div className="row no-gutters">
                 {noEventsMessage}
                 {   _.values(events).map(event => {
-                    return (<EventItem {...event} key={event.id} userId={id} renderOptions='list' hideToolbar={toolbar}/>)
+                    return (<EventItem {...event} key={event.id} userId={id} hideToolbar={toolbar}/>)
                     })
                 }
             </div>
