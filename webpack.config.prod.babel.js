@@ -1,8 +1,8 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
     template: `${__dirname}/src/index.html`,
@@ -10,14 +10,14 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
     inject: 'body',
 });
 
-const DefinePlugin = new webpack.DefinePlugin({
+const DefinePluginConfig = new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production'),
     'process.env.ROOT_URL': JSON.stringify('https://testproject-api.strv.com'),
 });
 
 const plugins = [
     HTMLWebpackPluginConfig,
-    DefinePlugin,
+    DefinePluginConfig,
     new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery',
@@ -51,7 +51,7 @@ const loaders = [
     { test: /\.(mp3)$/i, loader: 'file-loader' },
 ];
 
-const config = {
+module.exports = {
     entry: './src/index.jsx',
     output: { path: `${__dirname}/dist`, filename: '[hash].js' },
     devtool: 'source-map',
@@ -77,6 +77,3 @@ const config = {
     },
     plugins,
 };
-
-
-export default config;
