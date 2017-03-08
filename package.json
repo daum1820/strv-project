@@ -7,7 +7,9 @@
   "author": "Felipe Herrerias <felipe.crudo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --port 8080 --inline --config webpack.config.babel.js"
+    "postinstall": "webpack --bail --progress --profile --colors -p --config webpack.config.prod.babel.js",
+    "start": "node server.js",
+    "dev": "webpack-dev-server --port 8080 --inline --config webpack.config.babel.js"
   },
   "dependencies": {
     "admin-lte": "^2.3.11",
@@ -18,6 +20,7 @@
     "bootstrap": "^3.3.7",
     "bootstrap-loader": "^2.0.0-beta.22",
     "bootstrap-sass": "^3.3.7",
+    "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",

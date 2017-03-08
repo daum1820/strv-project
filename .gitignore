@@ -4,3 +4,4 @@ yarn.lock
 yarn-error.log
 .happypack
 .vscode
+.DS_Store

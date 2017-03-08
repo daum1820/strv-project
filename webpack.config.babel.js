@@ -5,8 +5,6 @@ import HappyPack from 'happypack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 
-const PROD = process.env.NODE_END === 'production';
-
 const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
     template: `${__dirname}/src/index.html`,
     filename: 'index.html',
@@ -74,7 +72,7 @@ const loaders = [
 
 const webpackConfig = {
     entry: './src/index.jsx',
-    output: { path: `${__dirname}/dist`, filename: PROD ? '[hash].js' : '[name].js' },
+    output: { path: `${__dirname}/dist`, filename: '[name].js' },
     cache: true,
     devtool: 'inline-eval-cheap-source-map',
     devServer: {
@@ -85,6 +83,10 @@ const webpackConfig = {
     watch: true,
     resolve: {
         extensions: ['.jsx', '.js',],
+        modules: [
+            path.resolve('./src'),
+            path.resolve('./node_modules'),
+        ],
         alias: {'jquery-ui': 'jquery-ui/jquery-ui.js'},
     },
     module: {
@@ -92,6 +94,5 @@ const webpackConfig = {
     },
     plugins,
 };
-
 
 export default webpackConfig;
