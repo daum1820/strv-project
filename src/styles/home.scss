@@ -9,6 +9,7 @@ header.home-header{
 
     a.logo{
         border:  0px !important;
+        cursor: pointer;
         .logo-lg{
             font-family: 'Pathway Gothic One', sans-serif;
             strong{
@@ -26,12 +27,17 @@ header.home-header{
                         border: 0px !important;
                         cursor: pointer;
                     }
+                    a:hover{
+                        background-color: #F9F9F9;
+                    }
+                }
+                li.user-header{
+                    background-color: #888;
                 }
             } 
         }
     }
 }
-
 .search-bar{
     margin-top: 20px;
     text-align: center;
@@ -39,29 +45,62 @@ header.home-header{
         width: 60%;
         margin : auto;
         span.input-group-btn{
-            .btn{
+            span.btn{
+                cursor: default;
+            }
+            button.btn{
                 background-color : #EF0D33;
                 color: #FFF;
             }
         }
+        input{
+            border: 0px;
+        }
     }
 }
 
-.event-list{
-    .box-body, .box-header{
-        span.time{
-            float: right;
-            font-size: 85%;
-            i.fa{
-                margin-right: 5px;
+.event-list, .user-profile{
+    .box{
+        -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+        .box-body, .box-header{
+            span.time{
+                float: right;
+                font-size: 85%;
+            }
+        }
+        .box-footer {
+            .danger-label{
+                color : #EF0D33;
+                font-weight: normal;
+                font-size: 80%;
+            }
+            .info-label{
+                color: blue;
+                font-weight: normal;
+                font-size: 80%;
             }
         }
     }
-    .box-footer {
-        .danger-label{
-            color : #EF0D33;
-            font-weight: normal;
-            font-size: 90%;
+}
+.event-form{
+    margin-top : 10px;
+    .backspace{
+        padding: 5px 10px;
+    }
+    .h100{
+        height: 100px;
+    }
+    div.error-label{
+        text-align: right;
+        color: #FF0000;
+        margin-bottom: 2px;
+
+    }
+    .box-footer{
+        .btn{
+            margin: 0 3px;
         }
     }
 }

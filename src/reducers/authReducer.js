@@ -23,7 +23,7 @@ export default (state = defaultState(), action) => {
             return {
                 ...state,
                 authMessage: '',
-                authUser: userCookie,
+                authUser: action.payload.data,
                 authenticated : true
             };
         case UNAUTH_USER:

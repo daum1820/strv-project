@@ -8,7 +8,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 
 // Dispatch AUTH_ERROR if something happens during login operation
 // or is provided email/password are invalid.
-const authErrorHandler = (dispatch) => {
+const authErrorHandler = (dispatch, error) => {
     dispatch({
         type : AUTH_ERROR,
         payload: 'E-mail or password is invalid. Please try again.'
@@ -26,20 +26,18 @@ export const doLogin = data => {
 
             cookie.save('token', authorization, { path: '/' });
             cookie.save('user-strv-cookie', data, { path: '/' });
-            setAxiosAuthorization(authorization)
-
             dispatch({
                 type: AUTH_USER,
                 payload: response,
             });
             dispatch(replace('/'));
-        }).catch(error => authErrorHandler(dispatch));
+        }).catch(error => authErrorHandler(dispatch, error));
     }
 };
 
 export const doLogout = () => (dispatch) => {
-    delete localStorage.user;
     cookie.remove('token', { path: '/' });
+    cookie.remove('user-strv-cookie', { path: '/' });
     dispatch({
         type: UNAUTH_USER,
     });

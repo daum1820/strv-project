@@ -16,6 +16,7 @@ import { history, store } from './lib/config';
 import routes from './routes';
 import './styles/main.scss';
 
+window.store = store;
 ReactDOM.render(
     <Provider store={store}>
         <Router history={history} routes={routes} />
