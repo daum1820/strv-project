@@ -7,7 +7,7 @@
   "author": "Felipe Herrerias <felipe.crudo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "postinstall": "webpack --bail --progress --profile --colors -p --config webpack.config.prod.babel.js",
+    "postinstall": "webpack --progress --profile --colors -p --config webpack.config.prod.babel.js",
     "start": "node server.js",
     "dev": "webpack-dev-server --port 8080 --inline --config webpack.config.babel.js"
   },
@@ -25,7 +25,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
     "jquery-ui": "^1.12.1",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "react": "^0.14.3",
     "react-cookie": "^1.0.4",
