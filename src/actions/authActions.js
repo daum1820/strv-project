@@ -1,6 +1,7 @@
-import cookie from 'react-cookie'; 
+
 import { replace } from 'react-router-redux';
 import { axiosInstance as axios, setAxiosAuthorization} from '../lib/config';
+import { clearToken, authToken } from '../lib/auth';
 
 export const AUTH_USER = 'AUTH_USER';
 export const UNAUTH_USER = 'UNAUTH_USER';
@@ -20,12 +21,11 @@ export const doLogin = data => {
     return (dispatch) => {
         request.then(response => {
             
-            // Fetching authorization and user data.
-            // Data will be stored in client's cookies.
             const { headers: { authorization }, data } = response;
-
-            cookie.save('token', authorization, { path: '/' });
-            cookie.save('user-strv-cookie', data, { path: '/' });
+            // Fetching authorization and user data.
+            // Data will be stored in client's localStorage.
+            authToken(authorization, data);
+            
             dispatch({
                 type: AUTH_USER,
                 payload: response,
@@ -36,8 +36,9 @@ export const doLogin = data => {
 };
 
 export const doLogout = () => (dispatch) => {
-    cookie.remove('token', { path: '/' });
-    cookie.remove('user-strv-cookie', { path: '/' });
+
+    clearToken();
+
     dispatch({
         type: UNAUTH_USER,
     });

@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import Loader from '../../components/Loader';
 import { attendEvent, unattendEvent } from '../../actions/eventsActions.js';
 import { Link } from 'react-router';
 
@@ -33,9 +32,6 @@ class EventItem extends Component {
     }
 
     renderToolbar(){
-        if (this.state.loading) {
-            return (<Loader />);
-        }
         if(this.props.hideToolbar){
             return '';
         }
@@ -46,12 +42,12 @@ class EventItem extends Component {
 
         const attendButton = (
             <button className="btn btn-xs btn-default" onClick={this.onAttendClick.bind(this)}>
-                <i className="fa fa-plus-circle"></i> Attend
+                <i className={this.state.loading ? 'fa fa-refresh fa-spin' : 'fa fa-plus-circle'}></i> Attend
             </button>
         );
         const unattendButton = (
             <button className="btn btn-xs btn-danger" onClick={this.onUnattendClick.bind(this)}>
-                <i className="fa fa-minus-circle"></i> Unattend
+                <i className={this.state.loading ? 'fa fa-refresh fa-spin' : 'fa fa-minus-circle'}></i> Unattend
             </button>
         );
         const capacityMessage = (
@@ -70,7 +66,7 @@ class EventItem extends Component {
     renderList(){
         const { id, title, description, startsAt, owner, attendees, capacity, userId } = this.props;
         return (
-            <div className={`box box-danger ${this.state.loading ? 'opacity' : ''}`}>
+            <div className="box box-danger">
                 <div className="box-header with-border">
                     <span className="pull-right">
                         {this.renderToolbar()}
@@ -85,7 +81,7 @@ class EventItem extends Component {
         const { id, title, description, startsAt, owner, attendees, capacity, userId } = this.props;
         return (
             <div className="col-md-4 col-sm-6 col-xs-12">
-                <div className={`box box-danger ${this.state.loading ? 'opacity' : ''}`}>
+                <div className="box box-danger">
                     <div className="box-header with-border">
                         <h3 className="box-title">{title}</h3>
                         <span className="time" title="Capacity" data-toggle="tooltip" data-placement="top">

@@ -1,7 +1,6 @@
-import cookie from 'react-cookie'; 
 import { axiosInstance as axios, loggedUser } from '../lib/config';
+import token from '../lib/auth';
 
-const token = cookie.load('token', { path: '/' });
 export const FETCH_EVENT = 'FETCH_EVENT';
 export const LIST_EVENTS = 'LIST_EVENTS';
 export const SEARCH_EVENT = 'SEARCH_EVENT';
@@ -30,8 +29,7 @@ export const attendEvent = (eventId) => {
         { headers: { 'Authorization': token } });
     return {
         type: ATTENDEE_EVENT,
-        payload: request,
-        args: eventId
+        payload: request
     }
 }
 
@@ -41,8 +39,7 @@ export const unattendEvent = (eventId) => {
         { data: { id }, headers: { 'Authorization': token } });
     return {
         type: UNATTENDEE_EVENT,
-        payload: request,
-        args: eventId
+        payload: request
     }
 }
 

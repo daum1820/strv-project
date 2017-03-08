@@ -72,7 +72,7 @@ const loaders = [
 
 const webpackConfig = {
     entry: './src/index.jsx',
-    output: { path: `${__dirname}/dist`, filename: '[name].js' },
+    output: { path: `${__dirname}`, filename: '[name].js' },
     cache: true,
     devtool: 'inline-eval-cheap-source-map',
     devServer: {

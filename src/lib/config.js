@@ -1,7 +1,6 @@
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import axios from 'axios';
-import cookie from 'react-cookie'; 
 import { syncHistoryWithStore, routerMiddleware, routerReducer as RouterReducer } from 'react-router-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { reducer as FormReducer } from 'redux-form';
@@ -34,10 +33,11 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.response.use(response => response, (err) => {
-    if (err.response.status === 403) {
+    if (err.response.status === 403 || err.response.status === 401) {
+        console.log("Authorization problems");
         store.dispatch(doLogout);
     }
-    if (err.response.status === 400 || err.response.status === 401) {
+    if (err.response.status === 400) {
         return Promise.reject(err);
     }
     

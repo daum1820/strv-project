@@ -1,13 +1,9 @@
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from '../actions/authActions';
-import cookie from 'react-cookie'; 
-
-const token = cookie.load('token');
-const userCookie = cookie.load('user-strv-cookie');
-
+import token, { userDetails } from '../lib/auth';
 const defaultState = () => {
     if (token) {
         return {
-            authUser: userCookie,
+            authUser: userDetails(),
             authMessage: '',
             authenticated: true,
         };
