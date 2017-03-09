@@ -62,7 +62,7 @@ class Auth extends Component{
         }
 
         return (
-            <div className="login login-box">
+            <div className="login col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
                 <div className="login-logo">
                     <strong>STRV</strong>ents
                 </div>
