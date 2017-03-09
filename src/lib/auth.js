@@ -6,7 +6,7 @@ export const authToken = (token, userDetails) => {
     localStorage.userDetails = JSON.stringify(userDetails);
 }
 
-export const jwToken = localStorage.jwToken;
+export const jwToken = () => (localStorage.jwToken);
 export const userDetails = () => {
     if (!localStorage.userDetails){
         return null;

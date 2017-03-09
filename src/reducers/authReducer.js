@@ -1,6 +1,7 @@
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from '../actions/authActions';
-import token, { userDetails } from '../lib/auth';
+import JWT, { userDetails } from '../lib/auth';
 const defaultState = () => {
+    const token = JWT();
     if (token) {
         return {
             authUser: userDetails(),
@@ -23,7 +24,7 @@ export default (state = defaultState(), action) => {
                 authenticated : true
             };
         case UNAUTH_USER:
-            return { ...state, authenticated: false, authUser : null };
+            return { ...state, authenticated: false, authUser: null, authMessage: action.payload };
         case AUTH_ERROR:
             return { ...state, authenticated: false, authMessage: action.payload };
         default:

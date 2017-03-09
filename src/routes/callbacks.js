@@ -1,5 +1,5 @@
 import { store } from '../lib/config';
-import { listEvents, fetchEvent } from '../actions/eventsActions';
+import { listEvents, fetchEvent, newEvent } from '../actions/eventsActions';
 
 export const checkAlreadyLoggedIn = (nextState, replaceState) => {
     const { authenticated } = store.getState().auth;
@@ -24,8 +24,15 @@ export const onHomeEnter = (nextState, replaceState) => {
 export const onUserEnter = onHomeEnter;
 
 export const onEventEnter = (nextState, replaceState) => {
+    const { authenticated, authUser : {id : userId} } = store.getState().auth;
+    if (authenticated) {
+        store.dispatch(fetchEvent(nextState.params.id, userId));
+    }
+}
+
+export const onNewEventEnter = (nextState, replaceState) => {
     const { authenticated } = store.getState().auth;
     if (authenticated) {
-        store.dispatch(fetchEvent(nextState.params.id));
+        store.dispatch(newEvent());
     }
 }

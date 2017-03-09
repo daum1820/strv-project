@@ -11,7 +11,7 @@ class EventList extends Component{
         if(!this.props.auth || !this.props.list){
             return (<Loader />);
         }
-        const { id } = this.props.auth.authUser;
+        const { authUser } = this.props.auth;
         let loadingFrame = null;
         
         //while fetch the events, show loading frame.
@@ -22,9 +22,9 @@ class EventList extends Component{
             <div className="content-wrapper event-list" >
                 <h3> Events </h3>
                 {loadingFrame}
-                <div className="row no-gutters">
+                <div className="row event-block no-gutters">
                     {   _.values(this.props.list).map(event => {
-                            return (<EventItem {...event} key={event.id} userId={id}/>)
+                        return (<EventItem event={event} key={event.id} user={authUser} attendeesToolbar={true}/>)
                         })
                     }
                 </div>    

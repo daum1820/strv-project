@@ -1,4 +1,5 @@
-import { FETCH_EVENT, LIST_EVENTS, SEARCH_EVENT, ATTENDEE_EVENT, UNATTENDEE_EVENT } from '../actions/eventsActions';
+import { Events }  from '../actions/eventsActions';
+import moment from 'moment';
 
 const defaultState = () => ({
     list : {},
@@ -9,36 +10,22 @@ const defaultState = () => ({
 
 export default (state = defaultState(), action) => {
     switch(action.type){
-        case `${FETCH_EVENT}_PENDING`: 
-        case `${LIST_EVENTS}_PENDING`: 
+        case `${Events.FETCH_EVENT}_PENDING`: 
+        case `${Events.LIST_EVENTS}_PENDING`: 
             return {
                 ...state,
                 loading: true
             }
-        case `${ATTENDEE_EVENT}_FULFILLED`:
-        case `${UNATTENDEE_EVENT}_FULFILLED`:{
-            const newState = {
-                ...state,
-                loading : false,
-                list: {
-                    ...state.list,
-                    [action.payload.data.id]: action.payload.data,
-                },
-            };
-            return newState;
-        }
-        case SEARCH_EVENT:
-            return {
-                ...state,
-                term : action.payload
-            }
-        case `${FETCH_EVENT}_FULFILLED`:
+        case `${Events.FETCH_EVENT}_FULFILLED`:
             return {
                 ...state,
                 loading: false,
-                selectedEvent : action.payload.data
+                selectedEvent: {
+                    ...action.payload.data,
+                    startsAt: moment(action.payload.data.startsAt).format('YYYY-MM-DDTHH:mm')
+                }
             }
-        case `${LIST_EVENTS}_FULFILLED` :
+        case `${Events.LIST_EVENTS}_FULFILLED`:
             return {
                 ...state,
                 loading: false,
@@ -46,6 +33,71 @@ export default (state = defaultState(), action) => {
                     current[next.id] = next;
                     return current;
                 }, {})
+            } 
+        case `${Events.ATTEND_EVENT}_FULFILLED`:
+        case `${Events.UNATTEND_EVENT}_FULFILLED`:{
+            const newState = {
+                ...state,
+                loading : false,
+                selectedEvent: {
+                    ...action.payload.data,
+                    startsAt: moment(action.payload.data.startsAt).format('YYYY-MM-DDTHH:mm')
+                },
+                list: {
+                    ...state.list,
+                    [action.payload.data.id]: action.payload.data,
+                },
+            };
+            return newState;
+        }
+        case Events.CREATE_EVENT: {
+            const list = {
+                ...state.list,
+                [action.payload.data.id] : action.payload.data
+            }
+            return {
+                ...state,
+                loading: false,
+                list: list,
+                selectedEvent: {
+                    ...action.payload.data,
+                    startsAt: moment(action.payload.data.startsAt).format('YYYY-MM-DDTHH:mm')
+                }
+            }
+        }
+        case Events.SAVE_EVENT:
+            return {
+                ...state,
+                loading: false,
+                list : {
+                    ...state.list,
+                    [action.payload.data.id]: action.payload.data,
+                },
+                selectedEvent: {
+                    ...action.payload.data,
+                    startsAt: moment(action.payload.data.startsAt).format('YYYY-MM-DDTHH:mm')
+                }
+            }
+        case Events.DELETE_EVENT:
+            const list = {
+                ...state.list,
+            }
+            delete list[action.payload];
+
+            return {
+                ...state,
+                loading: false,
+                ...list
+            }
+        case Events.NEW_EVENT:
+            return {
+                ...state,
+                selectedEvent: null
+            }
+        case Events.SEARCH_EVENT:
+            return {
+                ...state,
+                term: action.payload
             }
         default:
             return state;

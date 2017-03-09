@@ -53,12 +53,12 @@ class Auth extends Component{
         const { handleSubmit } = this.props;
         let loginBoxMessage = (<p className="login-box-msg">Sign in to start your session</p>);
 
-        if (!this.props.authenticated && this.state.submitted){
-            if (this.props.authMessage) {
-                loginBoxMessage = (<p className="login-box-msg has-error">{this.props.authMessage}</p>);
-            } else {
-                loginBoxMessage = (<Loader />);
-            }
+        if (this.state.submitted) {
+            loginBoxMessage = (<Loader />);
+        }
+        
+        if (!this.props.authenticated && this.props.authMessage ){
+            loginBoxMessage = (<p className="login-box-msg has-error">{this.props.authMessage}</p>);
         }
 
         return (

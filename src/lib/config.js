@@ -34,8 +34,8 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(response => response, (err) => {
     if (err.response.status === 403 || err.response.status === 401) {
-        console.log("Authorization problems");
-        store.dispatch(doLogout);
+        store.dispatch(doLogout('Your session expired.'));
+        return Promise.reject(err);
     }
     if (err.response.status === 400) {
         return Promise.reject(err);

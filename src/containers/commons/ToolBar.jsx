@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Link } from 'react-router';
 
 class ToolBar extends Component {
     
@@ -24,11 +25,12 @@ class ToolBar extends Component {
                         onChange={event => this.onInputChange(event.target.value)} />
                     <span className="input-group-btn">
                         <span className="btn btn-flat"><i className="fa fa-search"></i></span>
-                        <button className="btn btn-secondary" type="submit">
+                        <Link className="btn btn-danger" to='event/new'>
                             <i className="fa fa-plus"></i> Create Event
-                        </button>
+                        </Link>
                     </span>
                 </div>
+                <hr />
             </div>
         );
     }

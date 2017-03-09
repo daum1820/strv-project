@@ -15,15 +15,16 @@ class EventList extends Component {
         this.renderEvents.bind(this);
     }
 
-    renderEvents(events, toolbar){
-        const { id } = this.props.auth.authUser;
+    renderEvents(events, attendeesToolbar){
+        const { authUser } = this.props.auth;
         const noEventsMessage = !_.keys(events).length && !this.props.loading ? 
             (<div className="text-center"> No events were found.</div>) : '';
         return(
             <div className="row no-gutters">
                 {noEventsMessage}
                 {   _.values(events).map(event => {
-                    return (<EventItem {...event} key={event.id} userId={id} hideToolbar={toolbar}/>)
+                    return (<EventItem event={event} key={event.id} 
+                        user={authUser} attendeesToolbar={attendeesToolbar}/>)
                     })
                 }
             </div>
@@ -42,7 +43,8 @@ class EventList extends Component {
         return (
             <div className="content-wrapper user-profile" >
                 <div className="col-md-4 col-sm-12">
-                    <h3> My profile</h3>
+                    <h3><i className="fa fa-user"></i> Profile</h3>
+                    <hr />
                     <div className="box box-widget widget-user-2">
                         <div className="widget-user-header bg-red bg-strv">
                             <div className="widget-user-image">
@@ -67,11 +69,11 @@ class EventList extends Component {
                     <h3><i className="fa fa-calendar-check-o"></i> Upcoming events</h3>
                     <hr />
                     {loadingEvents}
-                    {this.renderEvents(this.props.upcomingEvents, false)}
+                    {this.renderEvents(this.props.upcomingEvents, true)}
                     <h3> <i className="fa fa-history"></i> Past events</h3>
                     <hr />
                     {loadingEvents}
-                    {this.renderEvents(this.props.pastEvents, true)}
+                    {this.renderEvents(this.props.pastEvents, false)}
                     <h3><i className="fa fa-shield"></i> Your events</h3>
                     <hr />
                     {loadingEvents}

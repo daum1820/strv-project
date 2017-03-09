@@ -35,14 +35,15 @@ export const doLogin = data => {
     }
 };
 
-export const doLogout = () => (dispatch) => {
-
-    clearToken();
-
-    dispatch({
-        type: UNAUTH_USER,
-    });
-    dispatch(replace('/login'));
+export const doLogout = (message) => {
+    return (dispatch) => {
+        clearToken();
+        dispatch({
+            type: UNAUTH_USER,
+            payload : message
+        });
+        dispatch(replace('/login'));
+    }
 };
 
 

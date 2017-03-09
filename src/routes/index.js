@@ -10,7 +10,7 @@ import EventForm from '../containers/events/EventForm';
 import Main from '../components/Main';
 import NotFound from '../components/NotFound';
 import { checkAlreadyLoggedIn, checkAuth } from './callbacks.js';
-import { onHomeEnter, onUserEnter, onEventEnter} from './callbacks.js';
+import { onHomeEnter, onUserEnter, onEventEnter, onNewEventEnter} from './callbacks.js';
 
 export default (
     <Router history={history}>
@@ -18,6 +18,7 @@ export default (
         <Route path="/" component={Main} onEnter={checkAuth}>
             <IndexRoute component={Home} onEnter={onHomeEnter}/>
             <Route path="/events/:id" component={EventForm} onEnter={onEventEnter} />
+            <Route path="/event/new" component={EventForm} onEnter={onNewEventEnter} />
             <Route path="/user/profile" component={User} onEnter={onUserEnter}/>
             <Route path="*" component={NotFound} />
         </Route>
