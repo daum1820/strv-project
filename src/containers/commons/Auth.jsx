@@ -71,12 +71,12 @@ class Auth extends Component{
                     <form onSubmit={handleSubmit(this.onSubmit.bind(this))}
                     method="post">
                         <div className="row">
-                            <div className="col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                            <div className="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                                 {_.map(FIELDS, this.renderField.bind(this))}
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                            <div className="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                                 <button type="submit" className="btn btn-danger btn-block">
                                     <i className="glyphicon glyphicon-log-in"></i>Sign In
                                 </button>

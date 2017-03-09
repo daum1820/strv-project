@@ -1,12 +1,9 @@
-import _ from 'lodash';
 import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Loader from '../../components/Loader';
 import avatar from '../../assets/default-avatar.png';
-import { upcomingEvents as UpcomingEvents } from '../../filters/eventsFilter';
-import { pastEvents as PastEvents } from '../../filters/eventsFilter';
-import { ownedEvents as OwnedEvents } from '../../filters/eventsFilter';
+import  * as selectors from '../../selectors/eventsSelector';
 import EventItem from '../events/EventItem';
 
 class EventList extends Component {
@@ -22,7 +19,7 @@ class EventList extends Component {
         return(
             <div className="row no-gutters">
                 {noEventsMessage}
-                {   _.values(events).map(event => {
+                {   events.map(event => {
                     return (<EventItem event={event} key={event.id} 
                         user={authUser} attendeesToolbar={attendeesToolbar}/>)
                     })
@@ -58,9 +55,9 @@ class EventList extends Component {
                         <div className="box-footer no-padding">
                             <ul className="nav nav-stacked">
                                 <li><a href="#"><i className="fa fa-envelope"></i> {email} <span className="pull-right badge bg-blue">31</span></a></li>
-                                <li><a href="#"> Upcoming Events <span className="pull-right badge bg-blue">{_.keys(this.props.upcomingEvents).length}</span></a></li>
-                                <li><a href="#"> Past Events <span className="pull-right badge bg-blue">{_.keys(this.props.pastEvents).length}</span></a></li>
-                                <li><a href="#"> Owned Events <span className="pull-right badge bg-blue">{_.keys(this.props.ownedEvents).length}</span></a></li>
+                                <li><a href="#"> Upcoming Events <span className="pull-right badge bg-blue">{this.props.upcomingEvents.length}</span></a></li>
+                                <li><a href="#"> Past Events <span className="pull-right badge bg-blue">{this.props.pastEvents.length}</span></a></li>
+                                <li><a href="#"> Owned Events <span className="pull-right badge bg-blue">{this.props.ownedEvents.length}</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,9 +82,9 @@ class EventList extends Component {
 
 }
 const mapStateToProps = (state) => ({
-    upcomingEvents: UpcomingEvents(state),
-    pastEvents: PastEvents(state),
-    ownedEvents: OwnedEvents(state),
+    upcomingEvents: selectors.upcomingEvents(state),
+    pastEvents: selectors.pastEvents(state),
+    ownedEvents: selectors.ownedEvents(state),
     loading: state.events.loading,
     auth: state.auth
 });

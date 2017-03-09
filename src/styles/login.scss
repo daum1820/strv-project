@@ -1,27 +1,19 @@
+@import 'base';
+
 .login{
     margin-top : 120px;
     .login-box-body{
-        border-top : 2px dotted #000;
+        border-top : $border-style;
     }
+
     .login-box-msg.has-error{
-        color : #EF0D33;
+        color : $main-color;
         font-weight: bold;
     }
-    div.login-logo {
-        font-family: 'Pathway Gothic One', sans-serif;
-        strong{
-            color : #EF0D33;
-        }
-        font-size: 5em;
-    }
+
     div.error-label{
         text-align: right;
-        color: #FF0000;
+        color: $main-color;
         margin-bottom: 2px;
-    }
-    .btn{
-        i.glyphicon {
-            margin-right: 5px;
-        }
     }
 }

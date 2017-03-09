@@ -19,9 +19,9 @@ class Home extends Component {
         return (
             <header className="main-header home-header">
                 <Link to="/" className="logo" title="Go to home" data-toggle="tooltip" data-placement="bottom">
-                    <span className="logo-lg">
+                    <span className="logo-sm">
                         <strong>STRV</strong>ents
-                </span>
+                    </span>
                 </Link>
                 <nav className="navbar navbar-static-top">
                     <div className="navbar-custom-menu">

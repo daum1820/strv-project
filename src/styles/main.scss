@@ -1,25 +1,37 @@
+@import 'base';
+
 body {
-    font-family: 'Source Sans Pro', sans-serif;
-}
-.content-wrapper{
-    margin-top: 70px;
-    margin-left: 5%;
-    width: 90%;
-    border: 0px !important;
-    background-color: #FFF;
+    font-family: $font-stack;
+
+    .content-wrapper{
+        margin-top: 70px;
+        margin-left: 5%;
+        width: 90%;
+        border: 0px !important;
+        background-color: $secundary-color;
+    }
+
+    .overlay{
+        text-align: center;
+        margin-bottom: 9px;
+        font-size : 2em
+    }
+    
+    i.fa, i.glyphicon{ margin-right: 5px;}
+    .bg-strv{ background-color: $main-color;}
+    .opacity {opacity: 0.3;}
+
+    .login-logo {
+        font-family: $font-logo;
+        font-size: 5em;
+        strong{
+            color : $main-color;
+        }
+    }
+    .logo-sm {
+        @extend .login-logo;
+        font-size: 1.5em;
+    }
+
 }
 
-i.fa{
-    margin-right: 5px;
-}
-.bg-strv{
-    background-color: #EF0D33;
-}
-.overlay{
-    text-align: center;
-    margin-bottom: 9px;
-    font-size : 2em
-}
-.opacity {
-    opacity: 0.3
-}

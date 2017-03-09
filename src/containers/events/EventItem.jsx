@@ -26,13 +26,13 @@ class EventItem extends Component {
                             {moment(startsAt).format('MMMM Do, YYYY - HH:mm')}
                         </span>
                         <div className="row">
-                            <label className="col-sm-2">Owner</label>
-                            <label className="col-sm-8">Description</label>
+                            <label className="col-sm-2 col-xs-6">Owner</label>
+                            <label className="col-sm-8 col-xs-6">Description</label>
                         </div>
                         <div className="row">
-                        <div className="col-sm-2">
+                        <div className="col-sm-2 col-xs-6">
                             {`${owner.firstName} ${owner.lastName}`}</div>
-                            <div className="col-sm-8">{description}</div>
+                        <div className="col-sm-8 col-xs-6">{description}</div>
                         </div>
                         <div>
                             <Link to={`/events/${id}`} className="pull-right">

@@ -1,25 +1,17 @@
+@import 'base';
+
 header.home-header{
-    border-bottom : 2px dotted #000;
+    border-bottom : $border-style;
     width: 94%;
     left: 3%;
     top: 0;
     position: fixed;
-    -webkit-box-shadow: none !important;
-	-moz-box-shadow: none !important;
-	box-shadow: none !important;
+    @include box-shadow(none !important) ;
 
     a.logo{
         border:  0px !important;
         cursor: pointer;
-        .logo-lg{
-            font-family: 'Pathway Gothic One', sans-serif;
-            strong{
-                color : #EF0D33;
-            }
-            font-size: 1.5em;
-        }
     }
-    
     .navbar{
         .navbar-custom-menu{
             .navbar-nav {
@@ -28,53 +20,43 @@ header.home-header{
                         border: 0px !important;
                         cursor: pointer;
                     }
-                    a:hover{
-                        background-color: #F9F9F9;
-                    }
+                    a:hover{ background-color: #F9F9F9; }
                 }
-                li.user-header{
-                    background-color: #888;
-                }
+                li.user-header{ background-color: #888; }
             } 
         }
     }
 }
 .search-bar{
-    hr {
-        width: 90%;
-    }
+    hr { width: 90%; }
     padding-top: 20px;
     text-align: center;
     position: fixed;
     top: 42px;
     z-index: 100;
-    background-color: #FFF;
+    background-color: $secundary-color;
 
     .input-group{
         width: 60%;
         margin : auto;
         span.input-group-btn{
-            span.btn{
-                cursor: default;
-            }
+            span.btn{ cursor: default; }
             a.btn{
-                background-color : #EF0D33;
-                color: #FFF;
+                background-color : $main-color;
+                color: $secundary-color;
             }
         }
-        input{
-            border: 0px;
-        }
+        input{ border: 0px; }
     }
 }
+
 .content-wrapper.event-list{
     margin-top: 150px;
 }
+
 .event-list, .user-profile{
     .box{
-        -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
-        box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+         @include box-shadow(0px 5px 5px 0px rgba(0,0,0,0.2));
         .box-body, .box-header{
             span.time{
                 float: right;
@@ -83,35 +65,30 @@ header.home-header{
         }
     }
 }
+
 .box-footer {
     .danger-label{
-        color : #EF0D33;
+        color : $main-color;
         font-weight: normal;
         font-size: 90%;
     }
     .info-label{
+        @extend .danger-label;
         color: blue;
-        font-weight: normal;
-        font-size: 90%;
     }
 }
+
 .event-form{
     margin-top : 10px;
-    .backspace{
-        padding: 5px 10px;
-    }
-    .h100{
-        height: 100px;
-    }
+    .backspace{ padding: 5px 10px; }
+    .h100{ height: 100px; }
     div.error-label{
         text-align: right;
-        color: #FF0000;
+        color: $main-color;
         margin-bottom: 2px;
 
     }
     .box-footer{
-        .btn{
-            margin: 0 3px;
-        }
+        .btn{ margin: 0 3px; }
     }
 }
