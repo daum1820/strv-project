@@ -25,6 +25,7 @@ class EventForm extends Component {
         }
     }
 
+    //Render fields based on external configuration
     renderField(config, field) {
         const fieldHelper = this.props.fields[field];
         let value = null;
