@@ -9,7 +9,7 @@ import { doLogout } from '../actions/authActions';
 import { hashHistory } from 'react-router';
 import AuthReducer from '../reducers/authReducer';
 import EventsReducer from '../reducers/eventsReducer';
-import { ROOT_URL } from '../utils';
+import { BASE_URL } from '../utils';
 
 const reducers = combineReducers({
     auth: AuthReducer,
@@ -26,19 +26,20 @@ const middleware = applyMiddleware(
 );
 
 export const store = createStore(reducers, middleware);
-export const history = syncHistoryWithStore(hashHistory, store);
+export const history = process.env.NODE_ENV !== 'test' ? 
+        syncHistoryWithStore(hashHistory, store) : hashHistory;
 
 export const axiosInstance = axios.create({
-    baseURL: ROOT_URL
+    baseURL: BASE_URL
 });
 
-axiosInstance.interceptors.response.use(response => response, (err) => {
+axiosInstance.interceptors.response.use(response => response, (error) => {
     if (err.response.status === 403 || err.response.status === 401) {
         store.dispatch(doLogout('Your session expired.'));
-        return Promise.reject(err);
+        return Promise.reject(error);
     }
     if (err.response.status === 400) {
-        return Promise.reject(err);
+        return Promise.reject(error);
     }
     
 });

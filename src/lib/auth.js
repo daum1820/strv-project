@@ -2,22 +2,21 @@
 //Save Auth Token and UserDetails;
 export const authToken = (token, userDetails) => {
     clearToken();
-    localStorage.jwToken = token;
-    localStorage.userDetails = JSON.stringify(userDetails);
+    localStorage.setItem('jwToken', token);
+    localStorage.setItem('userDetails', JSON.stringify(userDetails));
 }
 
-export const jwToken = () => (localStorage.jwToken);
+export const jwToken = () => (localStorage.getItem('jwToken'));
 export const userDetails = () => {
-    if (!localStorage.userDetails){
+    if (!localStorage.getItem('userDetails')){
         return null;
     }
     
-    return JSON.parse(localStorage.userDetails)
+    return JSON.parse(localStorage.getItem('userDetails'))
 }
 
 export const clearToken = () => {
-    localStorage.removeItem('jwToken');
-    localStorage.removeItem('userDetails');
+    localStorage.clear();
 }
 
 export default jwToken;

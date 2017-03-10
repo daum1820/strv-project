@@ -11,7 +11,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, hashHistory } from 'react-router';
+import { Router } from 'react-router';
 import { history, store } from './lib/config';
 import routes from './routes';
 import './styles/main.scss';

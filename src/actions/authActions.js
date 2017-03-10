@@ -1,25 +1,22 @@
-
 import { replace } from 'react-router-redux';
 import { axiosInstance as axios, setAxiosAuthorization} from '../lib/config';
 import { clearToken, authToken } from '../lib/auth';
-
-export const AUTH_USER = 'AUTH_USER';
-export const UNAUTH_USER = 'UNAUTH_USER';
-export const AUTH_ERROR = 'AUTH_ERROR';
+import * as Type from '../constants/ActionTypes';
+import http from 'axios/lib/adapters/http';
 
 // Dispatch AUTH_ERROR if something happens during login operation
 // or is provided email/password are invalid.
 const authErrorHandler = (dispatch, error) => {
     dispatch({
-        type : AUTH_ERROR,
+        type: Type.AUTH_ERROR,
         payload: 'E-mail or password is invalid. Please try again.'
     });
 };
 
 export const doLogin = data => {
-    const request = axios.post('/auth/native', data);
+    const request = axios.post('/auth/native', data, { adapter: http });
     return (dispatch) => {
-        request.then(response => {
+        return request.then(response => {
             
             const { headers: { authorization }, data } = response;
             // Fetching authorization and user data.
@@ -27,7 +24,7 @@ export const doLogin = data => {
             authToken(authorization, data);
             
             dispatch({
-                type: AUTH_USER,
+                type: Type.AUTH_USER,
                 payload: response,
             });
             dispatch(replace('/'));
@@ -39,16 +36,11 @@ export const doLogout = (message) => {
     return (dispatch) => {
         clearToken();
         dispatch({
-            type: UNAUTH_USER,
-            payload : message
+            type: Type.UNAUTH_USER,
+            payload: message
         });
         dispatch(replace('/login'));
+        return Promise.resolve(Type.UNAUTH_USER);
     }
-};
-
-
-export default {
-    doLogin,
-    doLogout,
 };
 

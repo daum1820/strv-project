@@ -3,4 +3,5 @@ export const validateEmail = (email) =>{
     return re.test(email);
 }
 
-export const ROOT_URL = process.env.ROOT_URL;
+export const BASE_URL = process.env.BASE_URL;
+export const ENV = process.env.NODE_ENV;

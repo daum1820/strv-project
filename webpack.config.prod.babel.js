@@ -12,7 +12,7 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 
 const DefinePluginConfig = new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production'),
-    'process.env.ROOT_URL': JSON.stringify('https://testproject-api.strv.com'),
+    'process.env.BASE_URL': JSON.stringify('https://testproject-api.strv.com'),
 });
 
 const plugins = [
