@@ -19,37 +19,37 @@ constructor(props){
         }
     }
 
-    componetWillUpdate(){
-        console.inf('vai');
+    componentWillUpdate(){
+        if(this.state.loading){
+            this.setState({ loading: false });
+        }
     }
 
     onAttendClick(){
+        const { event : {id : eventId}, user:{ id: userId }} = this.props;
         this.setState({loading : true});
-        this.props.attendEvent(this.props.event.id).then(() =>{
-            this.setState({ loading: false });
-        });
+        this.props.attendEvent(eventId, userId);
     }
 
     onUnattendClick(){
+        const { event: { id: eventId }, user: { id: userId } } = this.props;
         this.setState({ loading: true });
-        this.props.unattendEvent(this.props.event.id).then(() => {
-            this.setState({ loading: false });
-        });
+        this.props.unattendEvent(eventId, userId);
     }
 
     onDeleteClick() {
-        deleting: false,
-        this.setState({ loading: true });
-        this.props.deleteEvent(this.props.event.id);
+        const { id: eventId } = this.props.event;
+        this.setState({ deleting: true });
+        this.props.deleteEvent(eventId);
     }
 
     renderAttendeeToolbar() {
-        if (!this.props.attendeesToolbar || !this.props.event) {
+        if (!this.props.attendeesToolbar || !this.props.event || !this.props.user) {
             return '';
         }
 
         const { capacity } = this.props.event;
-        const { id: userId } = this.props.user || { id : null};
+        const { id: userId } = this.props.user;
         const isAttendeeToMe = this.props.event.attendees.some(attendee => attendee.id === userId);
         const isAfterNow = moment().isBefore(this.props.event.startsAt);
         const numberOfAttendees = this.props.event.attendees.length;

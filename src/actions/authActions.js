@@ -1,8 +1,7 @@
 import { replace } from 'react-router-redux';
-import { axiosInstance as axios, setAxiosAuthorization} from '../lib/config';
+import { axiosInstance as axios} from '../lib/config';
 import { clearToken, authToken } from '../lib/auth';
 import * as Type from '../constants/ActionTypes';
-import http from 'axios/lib/adapters/http';
 
 // Dispatch AUTH_ERROR if something happens during login operation
 // or is provided email/password are invalid.
@@ -14,7 +13,7 @@ const authErrorHandler = (dispatch, error) => {
 };
 
 export const doLogin = data => {
-    const request = axios.post('/auth/native', data, { adapter: http });
+    const request = axios.post('/auth/native', data);
     return (dispatch) => {
         return request.then(response => {
             

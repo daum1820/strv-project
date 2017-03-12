@@ -1,0 +1,13 @@
+$main-color : #EF0D33;
+$secundary-color : #FFFFFF;
+$border-style : 2px dotted #000;
+
+$font-stack : 'Source Sans Pro', sans-serif;
+$font-logo : 'Pathway Gothic One', sans-serif;
+
+@mixin box-shadow($options) {
+  -webkit-webkit-box-shadow: $options;
+     -moz-webkit-box-shadow: $options;
+      -ms-webkit-box-shadow: $options;
+                 box-shadow: $options;
+}

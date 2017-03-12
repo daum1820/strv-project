@@ -1,5 +1,6 @@
 import * as Type from '../constants/ActionTypes';
 import JWT, { userDetails } from '../lib/auth';
+
 const defaultState = () => {
     const token = JWT();
     if (token) {

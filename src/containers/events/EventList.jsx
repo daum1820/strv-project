@@ -6,6 +6,16 @@ import { searchEvents as SearchEvents} from '../../selectors/eventsSelector';
 import EventItem from './EventItem';
 
 class EventList extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { loading: true }
+    }
+
+    componentWillUpdate() {
+        if (this.state.loading) {
+            this.setState({ loading: false });
+        }
+    }
 
     render(){
         //Avoid render while stateinjection.
@@ -17,7 +27,7 @@ class EventList extends Component{
         let noEventsFound = null;
 
         //Show loader as feedback for user
-        if (this.props.loading){
+        if (this.state.loading){
             loadingFrame = (<Loader />);
         } else if(!this.props.list.length){
             noEventsFound = (
@@ -52,7 +62,6 @@ class EventList extends Component{
 }
 const mapStateToProps = (state) => ({
     list: SearchEvents(state),
-    loading : state.events.loading,
     auth: state.auth
 });
 

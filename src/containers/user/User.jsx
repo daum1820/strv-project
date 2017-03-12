@@ -10,6 +10,13 @@ class EventList extends Component {
     constructor(props){
         super(props);
         this.renderEvents.bind(this);
+        this.state = { loading : true }
+    }
+
+    componentWillUpdate() {
+        if (this.state.loading) {
+            this.setState({ loading: false });
+        }
     }
 
     renderEvents(events, attendeesToolbar){
@@ -34,7 +41,7 @@ class EventList extends Component {
         let loadingEvents = null;
 
         //while fetch the events, show loading frame.
-        if (this.props.loading) {
+        if (this.state.loading) {
             loadingEvents = (<Loader />);
         }
         return (
@@ -71,7 +78,7 @@ class EventList extends Component {
                     <hr />
                     {loadingEvents}
                     {this.renderEvents(this.props.pastEvents, false)}
-                    <h3><i className="fa fa-shield"></i> Your events</h3>
+                    <h3><i className="fa fa-shield"></i> Owned events</h3>
                     <hr />
                     {loadingEvents}
                     {this.renderEvents(this.props.ownedEvents, true)}
@@ -85,7 +92,6 @@ const mapStateToProps = (state) => ({
     upcomingEvents: selectors.upcomingEvents(state),
     pastEvents: selectors.pastEvents(state),
     ownedEvents: selectors.ownedEvents(state),
-    loading: state.events.loading,
     auth: state.auth
 });
 

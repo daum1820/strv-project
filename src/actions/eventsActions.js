@@ -1,43 +1,55 @@
-import { axiosInstance as axios, loggedUser } from '../lib/config';
+import { axiosInstance as axios } from '../lib/config';
 import { replace } from 'react-router-redux';
 import * as Type from '../constants/ActionTypes';
 import JWT from '../lib/auth';
 
 export const listEvents = () =>{
     const request = axios.get('/events');
-    return {
-        type: Type.LIST_EVENTS,
-        payload: request
+    return (dispatch) => {
+        return request.then(response => {
+            dispatch({
+                type: Type.LIST_EVENTS,
+                payload: response,
+            });
+        }).catch(() => dispatch(replace('/404')));
     }
 }
 
 export const fetchEvent = (eventId, userId) => {
     const request = axios.get(`/events/${eventId}`);
-    return {
-        type: Type.FETCH_EVENT,
-        payload: request
+    return (dispatch) => {
+        return request.then(response => {
+            dispatch({
+                type: Type.FETCH_EVENT,
+                payload: response,
+            });
+        }).catch(() => dispatch(replace('/404')));
     }
 }
 
-export const attendEvent = (eventId) => {
-    const { id } = loggedUser();
-    const request = axios.post(`/events/${eventId}/attendees/me`, { id },
+export const attendEvent = (eventId, userId) => {
+    const request = axios.post(`/events/${eventId}/attendees/me`, { id: userId },
         { headers: { 'Authorization': JWT() } });
-
-    return {
-        type: Type.ATTEND_EVENT,
-        payload: request,
+    return (dispatch) => {
+        return request.then(response => {
+            dispatch({
+                type: Type.ATTEND_EVENT,
+                payload: response,
+            });
+        }).catch(() => dispatch(replace('/404')));
     }
 }
 
-export const unattendEvent = (eventId) => {
-    const { id } = loggedUser();
+export const unattendEvent = (eventId, userId) => {
     const request = axios.delete(`/events/${eventId}/attendees/me`,
-        { data: { id }, headers: { 'Authorization': JWT() } });
-
-    return {
-        type: Type.UNATTEND_EVENT,
-        payload: request,
+        { data: { id: userId }, headers: { 'Authorization': JWT() } });
+    return (dispatch) => {
+        return request.then(response => {
+            dispatch({
+                type: Type.UNATTEND_EVENT,
+                payload: response,
+            });
+        }).catch(() => dispatch(replace('/404')));
     }
 }
 
@@ -46,7 +58,7 @@ export const deleteEvent = (eventId) => {
         { headers: { 'Authorization': JWT() } });
 
     return (dispatch) => {
-        request.then(response => {
+        return request.then(response => {
             dispatch({
                 type: Type.DELETE_EVENT,
                 payload: eventId,
@@ -64,14 +76,13 @@ export const searchEvent = term => {
 }
 
 export const createEvent = (event) =>{
-    const { id } = loggedUser();
     const request = axios.post('/events', { ...event},
         { headers: { 'Authorization': JWT() } });
 
     return (dispatch) => {
-        request.then(response => {
+        return request.then(response => {
             dispatch({
-                type: Type.SAVE_EVENT,
+                type: Type.CREATE_EVENT,
                 payload: response,
             });
             dispatch(replace(`/events/${response.data.id}`));
@@ -79,12 +90,11 @@ export const createEvent = (event) =>{
     }
 }
 export const updateEvent = (event, eventId) => {
-    const { id } = loggedUser();
     const request = axios.patch(`/events/${eventId}`, { ...event},
         { headers: { 'Authorization': JWT() } });
     
     return (dispatch) => {
-        request.then(response => {
+        return request.then(response => {
             dispatch({
                 type: Type.SAVE_EVENT,
                 payload: response,

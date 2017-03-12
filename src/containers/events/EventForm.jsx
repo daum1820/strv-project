@@ -15,13 +15,17 @@ class EventForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            submitted : false
+            submitted: false,
+            loading: true,
         };
     }
 
     componentWillUpdate() {
         if (this.state.submitted) {
             this.setState({ submitted: false });
+        }
+        if (this.state.loading) {
+            this.setState({ loading: false });
         }
     }
 
@@ -66,7 +70,7 @@ class EventForm extends Component {
         const { handleSubmit } = this.props;
         const { id } = this.props.authUser;
         this.props.fields.title.element = "label";
-        const loader = this.props.loading || this.state.submitted ? (<Loader />) : '';
+        const loader = this.state.loading || this.state.submitted ? (<Loader />) : '';
 
         return (
             <div className="content-wrapper event-form" >
@@ -74,7 +78,7 @@ class EventForm extends Component {
                     <Link to="/"> &lt; Go back  </Link>
                 </div>
                 <div className="col-sm-6">
-                    <div className={`box ${this.props.loading || this.state.submitted ? 'opacity' : ''}`}>
+                    <div className={`box ${this.state.loading || this.state.submitted ? 'opacity' : ''}`}>
                         {loader}
                         <div className="box-header with-border">
                             <h3 className="box-title"> Event Details </h3>
@@ -95,9 +99,8 @@ class EventForm extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, events: { selectedEvent, loading}}) => ({
+const mapStateToProps = ({ auth, events: { selectedEvent}}) => ({
     event : selectedEvent,
-    loading,
     ...auth,
     initialValues:{
         ...selectedEvent

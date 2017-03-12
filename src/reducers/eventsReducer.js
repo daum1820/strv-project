@@ -4,42 +4,32 @@ import moment from 'moment';
 const defaultState = () => ({
     list : {},
     selectedEvent : null,
-    term : '',
-    loading : false
+    term : ''
 });
 
 export default (state = defaultState(), action) => {
     switch(action.type){
-        case `${Type.FETCH_EVENT}_PENDING`: 
-        case `${Type.LIST_EVENTS}_PENDING`: 
+        case Type.FETCH_EVENT:
             return {
                 ...state,
-                loading: true
-            }
-        case `${Type.FETCH_EVENT}_FULFILLED`:
-            return {
-                ...state,
-                loading: false,
                 selectedEvent: {
                     ...action.payload.data,
                     startsAt: moment(action.payload.data.startsAt).format('YYYY-MM-DDTHH:mm')
                 }
             }
-        case `${Type.LIST_EVENTS}_FULFILLED`:
+        case Type.LIST_EVENTS:
             return {
                 ...state,
-                loading: false,
                 term: '',
                 list: action.payload.data.reduce((current, next) => {
                     current[next.id] = next;
                     return current;
                 }, {})
             } 
-        case `${Type.ATTEND_EVENT}_FULFILLED`:
-        case `${Type.UNATTEND_EVENT}_FULFILLED`:{
+        case Type.ATTEND_EVENT:
+        case Type.UNATTEND_EVENT: {
             const newState = {
                 ...state,
-                loading : false,
                 selectedEvent: {
                     ...action.payload.data,
                     startsAt: moment(action.payload.data.startsAt).format('YYYY-MM-DDTHH:mm')
@@ -52,14 +42,12 @@ export default (state = defaultState(), action) => {
             return newState;
         }
         case Type.CREATE_EVENT: {
-            const list = {
-                ...state.list,
-                [action.payload.data.id] : action.payload.data
-            }
             return {
                 ...state,
-                loading: false,
-                list: list,
+                list:{
+                    ...state.list,
+                    [action.payload.data.id]: action.payload.data
+                },
                 selectedEvent: {
                     ...action.payload.data,
                     startsAt: moment(action.payload.data.startsAt).format('YYYY-MM-DDTHH:mm')
@@ -69,7 +57,6 @@ export default (state = defaultState(), action) => {
         case Type.SAVE_EVENT:
             return {
                 ...state,
-                loading: false,
                 list : {
                     ...state.list,
                     [action.payload.data.id]: action.payload.data,
@@ -87,7 +74,6 @@ export default (state = defaultState(), action) => {
 
             return {
                 ...state,
-                loading: false,
                 ...list
             }
         case Type.NEW_EVENT:
