@@ -6,7 +6,7 @@ import { attendEvent, unattendEvent } from '../../actions/eventsActions.js';
 import { Link } from 'react-router';
 import EventToolbar from './details/EventToolbar';
 
-class EventItem extends Component {
+export class EventItem extends Component {
 
     render(){
         const numberOfAttendees = this.props.event.attendees.length;

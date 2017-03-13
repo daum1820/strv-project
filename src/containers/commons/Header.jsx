@@ -5,7 +5,7 @@ import { doLogout } from '../../actions/authActions';
 import ToolBar from '../../containers/commons/ToolBar';
 import UserProfile from '../../components/UserProfile';
 
-class Home extends Component {
+export class Home extends Component {
 
     constructor(props) {
         super(props);

@@ -6,7 +6,7 @@ import ToolBar from '../../containers/commons/ToolBar';
 import EventList from '../../containers/events/EventList';
 import { searchEvent } from '../../actions/eventsActions';
 
-class Home extends Component {
+export class Home extends Component {
 
     constructor(props){
         super(props);

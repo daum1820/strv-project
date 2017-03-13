@@ -23,7 +23,7 @@ const FIELDS = {
     }
 }
 
-class Auth extends Component{
+export class Auth extends Component{
 
     constructor(props){
         super(props);

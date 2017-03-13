@@ -10,7 +10,7 @@ import { Fields, validate } from './details/fields';
 import EventInfo from './details/EventInfo';
 import EventToolbar from './details/EventToolbar';
 
-class EventForm extends Component {
+export class EventForm extends Component {
 
     constructor(props) {
         super(props);
@@ -36,7 +36,7 @@ class EventForm extends Component {
         let disabled = !!this.props.event;
         if (this.props.event){
             const { owner } = this.props.event ? this.props.event : {};
-            const { id: userId } = this.props.authUser;
+            const { id: userId } = this.props.user;
             disabled = !(owner.id == userId);
         }
 
@@ -44,7 +44,7 @@ class EventForm extends Component {
             <div key={field} className={`form-group ${fieldHelper.touched && fieldHelper.invalid ? 'has-error' : ''}`}>
                 <label className="col-sm-3 control-label">{config.label}</label>
                 <div className="col-sm-9">
-                    <config.element type={config.type} className={` form-control ${config.className}`} {...fieldHelper} disabled={disabled}/>
+                    <config.element type={config.type} className={`form-control ${config.className}`} {...fieldHelper} disabled={disabled}/>
                     <div className="error-label">
                         {fieldHelper.touched ? fieldHelper.error : ''}
                     </div>
@@ -68,8 +68,7 @@ class EventForm extends Component {
 
     render() {
         const { handleSubmit } = this.props;
-        const { id } = this.props.authUser;
-        this.props.fields.title.element = "label";
+        const { id } = this.props.user;
         const loader = this.state.loading || this.state.submitted ? (<Loader />) : '';
 
         return (
@@ -89,7 +88,7 @@ class EventForm extends Component {
                                 {_.map(Fields, this.renderField.bind(this))}
                             </div>
                             {<EventToolbar ownerToolbar={true} createToolbar={true} cancelToolbar={true}
-                                attendeesToolbar={true} event={this.props.event} user={this.props.authUser}/>}
+                                attendeesToolbar={true} event={this.props.event} user={this.props.user}/>}
                         </form>
                     </div>
                 </div>
@@ -99,9 +98,9 @@ class EventForm extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, events: { selectedEvent}}) => ({
+const mapStateToProps = ({ auth: { authUser }, events: { selectedEvent}}) => ({
     event : selectedEvent,
-    ...auth,
+    user : authUser,
     initialValues:{
         ...selectedEvent
     }

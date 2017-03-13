@@ -5,7 +5,7 @@ import Loader from '../../components/Loader';
 import { searchEvents as SearchEvents} from '../../selectors/eventsSelector';
 import EventItem from './EventItem';
 
-class EventList extends Component{
+export class EventList extends Component{
     constructor(props) {
         super(props);
         this.state = { loading: true }

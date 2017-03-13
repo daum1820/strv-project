@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router';
 
-class ToolBar extends Component {
+export class ToolBar extends Component {
     
     constructor(props) {
         super(props);

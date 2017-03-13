@@ -9,7 +9,7 @@ export const Fields = {
     },
     description: {
         element: 'textarea',
-        type: 'text',
+        type: 'textarea',
         label: 'Description',
         required: 'The description is required',
         className: 'h100',

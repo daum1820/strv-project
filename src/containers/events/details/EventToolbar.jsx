@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 import { attendEvent, unattendEvent, deleteEvent } from '../../../actions/eventsActions';
 import moment from 'moment';
 
-class EventToolbar extends Component {
-constructor(props){
+export class EventToolbar extends Component {
+    constructor(props){
         super(props);
         
         this.renderAttendeeToolbar.bind(this);
@@ -67,10 +67,10 @@ constructor(props){
             </button>
         );
         const capacityMessage = (
-            <span className="danger-label"><i className="fa fa-info-circle"></i> Sorry, the maximum number of attendees has been reached</span>
+            <span className="danger-label"><i className="fa fa-info-circle"></i>Sorry, the maximum number of attendees has been reached</span>
         );
         const startsAtMessage = (
-            <span className="info-label"><i className="fa fa-info-circle"></i> Sorry, this event already occurred.</span>
+            <span className="info-label"><i className="fa fa-info-circle"></i>Sorry, this event already occurred.</span>
         );
 
         return isAfterNow ?
@@ -86,7 +86,7 @@ constructor(props){
         if (!this.props.event) {
             return (
                 <button type="submit" className="btn btn-xs btn-primary">
-                    <i className="fa fa-check"></i> Create
+                    <i className="fa fa-check"></i>Create
                 </button>
             )
         }
@@ -120,7 +120,7 @@ constructor(props){
         }
         return(
             <Link to={"/"} type="button" className="btn btn-xs btn-default pull-left">
-                <i className="fa fa-close"></i> Cancel
+                <i className="fa fa-close"></i>Cancel
             </Link>
         );
     }
