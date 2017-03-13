@@ -2,25 +2,21 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import { doLogin } from '../../actions/authActions';
-import { validateEmail } from '../../utils';
+import { validateEmail, loginFields as FIELDS } from '../../utils';
 import Loader from '../../components/Loader';
+import { Link } from 'react-router';
 import '../../styles/login.scss'
 
-const FIELDS = {
-    email: {
-        type: 'email',
-        placeholder: 'E-mail',
-        icon : 'envelope',
-        required: 'The e-mail cannot be empty',
-        validate: validateEmail,
-        validateError : 'This e-mail is not valid'
-    },
-    password: {
-        type: 'password',
-        placeholder: 'Password',
-        icon: 'lock',
-        required: 'The password cannot be empty'
-    }
+const validate = values => {
+    const errors = {};
+    _.each(FIELDS, (type, field) => {
+        if (!values[field] && type.required) {
+            errors[field] = type.required;
+        } else if (type.validate && !type.validate(values[field])) {
+            errors[field] = type.validateError;
+        }
+    })
+    return errors;
 }
 
 export class Auth extends Component{
@@ -68,7 +64,7 @@ export class Auth extends Component{
                 </div>
                 <div className="login-box-body">
                     { loginBoxMessage }
-                    <form onSubmit={handleSubmit(this.onSubmit.bind(this))}
+                    <form noValidate onSubmit={handleSubmit(this.onSubmit.bind(this))}
                     method="post">
                         <div className="row">
                             <div className="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
@@ -84,22 +80,18 @@ export class Auth extends Component{
                         </div>
                     </form>
                 </div>
+                <div className="login-box-footer">
+                    <div className="row">
+                        <div className="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 text-center">
+                            <span> New to STRVents?</span> <Link to='/register'>Create an account</Link>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
-const validate = values => {
-    const errors = {};
-    _.each(FIELDS, (type, field) => {
-        if (!values[field] && type.required) {
-            errors[field] = type.required;
-        } else if (type.validate && !type.validate(values[field])){
-            errors[field] = type.validateError;
-        }
-    })
-    return errors;
-}
 const mapStateToProps = (state) => ({
     ...state.auth
 });

@@ -12,6 +12,19 @@ const authErrorHandler = (dispatch, error) => {
     });
 };
 
+export const registerUser = data => {
+    const request = axios.post('/users', data);
+    return (dispatch) => {
+        return request.then(response => {
+            dispatch({
+                type: Type.REGISTER_USER,
+                payload: response,
+            });
+            dispatch(replace('/login'));
+        }).catch(error => authErrorHandler(dispatch, error));
+    }
+};
+
 export const doLogin = data => {
     const request = axios.post('/auth/native', data);
     return (dispatch) => {

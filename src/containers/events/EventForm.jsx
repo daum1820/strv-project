@@ -3,12 +3,23 @@ import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 import { createEvent, updateEvent } from '../../actions/eventsActions';
-import { validateEmail } from '../../utils';
 import Loader from '../../components/Loader';
 import { Link } from 'react-router';
-import { Fields, validate } from './details/fields';
+import { eventsFields as FIELDS } from '../../utils';
 import EventInfo from './details/EventInfo';
 import EventToolbar from './details/EventToolbar';
+
+const validate = values => {
+    const errors = {};
+    _.each(FIELDS, (type, field) => {
+        if (!values[field] && type.required) {
+            errors[field] = type.required;
+        } else if (type.validate && !type.validate(values[field])) {
+            errors[field] = type.validateError;
+        }
+    })
+    return errors;
+}
 
 export class EventForm extends Component {
 
@@ -82,10 +93,10 @@ export class EventForm extends Component {
                         <div className="box-header with-border">
                             <h3 className="box-title"> Event Details </h3>
                         </div>
-                        <form className="form-horizontal" onSubmit={handleSubmit(this.onSubmit.bind(this))}
+                        <form noValidate className="form-horizontal" onSubmit={handleSubmit(this.onSubmit.bind(this))}
                             method="post">
                             <div className="box-body">
-                                {_.map(Fields, this.renderField.bind(this))}
+                                {_.map(FIELDS, this.renderField.bind(this))}
                             </div>
                             {<EventToolbar ownerToolbar={true} createToolbar={true} cancelToolbar={true}
                                 attendeesToolbar={true} event={this.props.event} user={this.props.user}/>}
@@ -108,6 +119,6 @@ const mapStateToProps = ({ auth: { authUser }, events: { selectedEvent}}) => ({
 
 export default reduxForm({
     form: 'EventFormForm',
-    fields: _.keys(Fields),
+    fields: _.keys(FIELDS),
     validate
 }, mapStateToProps, { createEvent, updateEvent })(EventForm);

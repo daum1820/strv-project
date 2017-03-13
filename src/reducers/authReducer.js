@@ -17,6 +17,8 @@ const defaultState = () => {
 
 export default (state = defaultState(), action) => {
     switch (action.type) {
+        case Type.REGISTER_USER:
+            return { ...state, authenticated: false, authUser: null, authMessage: 'User successfully created' };
         case Type.AUTH_USER:
             return {
                 ...state,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import {EventForm} from '../../containers/events/EventForm';
-import { Fields } from '../../containers/events/details/fields';
+import { eventsFields as Fields } from '../../utils';
 import ReactTestUtils from 'react-addons-test-utils';
 
 function setup() {
